@@ -1,34 +1,43 @@
-package com.company;
+package ru.itpark;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.Currency;
 import java.util.Scanner;
+
+//Пусть есть последовательность (a1...aN), N->infinity, aN = -1
+//Необходимо посчитать произведение входных позиций чисел, у которых сумма цифр - простое число.
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("Введите число");
-        int number = scanner.nextInt();
-        int digitSum = 0;
-        int currentDigit;
-        while (number !=0) {
-            //System.out.println("number =" + number);
-            currentDigit = number % 10;
-            //Sys1tem.out.println("currentDigit =" + currentDigit);
-            digitSum = digitSum + currentDigit;
-            System.out.println("digits sum =" + digitSum);
-            number = number / 10;
-        }
-        for (int divider = 2; divider * divider <= digitSum; divider++) {
-            System.out.println("For divider = " + divider);
-            if (digitSum % divider == 0) {
-                System.out.println("Not prime");
-                return;
+        Scanner scanner = new Scanner(System.in);
+        int currentNumber = scanner.nextInt(); //Текущее число
+        int currentDigit = 0;
+        int compositionofNum = 1;
+        int PositionNumber = 1;
+        int SummNumbers = 0; //Сумма Чисел
+        while (currentNumber != -1) {
+            //Считаем сумму цифр числа
+            int digitSum = 0;
+            while (currentNumber != 0) {
+                System.out.println("number =" + currentNumber);
+                currentDigit = currentNumber % 10;
+                digitSum = digitSum + currentDigit;
+                System.out.println("digitSum =" + digitSum);
+                currentNumber = currentNumber / 10;
             }
-            System.out.println("Bad divider");
-        }
+            // определяем простое число или нет
+            for (int divider = 2; divider * divider <= digitSum; divider++) {
+                //System.out.println("For divider = " + divider);
+                if (digitSum % divider != 0) {
+                    System.out.println("Prime");
 
-        System.out.println("Prime");
+                    //считаем произведение входных позиций чисел
+                    compositionofNum = compositionofNum * PositionNumber;
+                    PositionNumber++;
+                }
+                currentNumber = scanner.nextInt();
+            }
+            System.out.println("compositionofNum = " + compositionofNum);
+
+        }
     }
 }
